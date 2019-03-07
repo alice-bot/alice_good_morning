@@ -91,9 +91,9 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   # end
 
   @doc """
-  `@alice Good Morning`
-  `@alice おはようございます`
-  `@alice Bonjour`
+  `Good Morning`
+  `おはようございます`
+  `Bonjour`
   Alice will respond back with a good morning in a random language
   """
   def direct_good_morning(
@@ -155,7 +155,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   end
 
   @doc """
-  `@alice morning language`
+  `morning language`
 
   Returns the language of the last good morning alice said
   """
