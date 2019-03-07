@@ -123,7 +123,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   `bom dia`
   `buenos días`
   `おはようございます`
-  `
+
   Say good morning to Alice in many different languages and she will respond
   with a "good morning" in a random language.
   """
