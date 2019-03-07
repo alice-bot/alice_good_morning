@@ -1,10 +1,16 @@
-# AliceGoodMorning [![Hex Version](https://img.shields.io/hexpm/v/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning) [![Hex Downloads](https://img.shields.io/hexpm/dt/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning) [![License: MIT](https://img.shields.io/hexpm/l/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning)
+<img height="300" src="https://i.imgur.com/p4L31NX.png" align="right" />
 
-<img height="135" src="https://i.imgur.com/r9rkDAe.png" align="left" />
+# AliceGoodMorning 
+[![Hex Version](https://img.shields.io/hexpm/v/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning) [![Hex Downloads](https://img.shields.io/hexpm/dt/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning) [![License: MIT](https://img.shields.io/hexpm/l/alice_good_morning.svg)](https://hex.pm/packages/alice_good_morning)
+
+
+
 
 This handler will allow Alice to say good morning to people in different languages.
 
 It does so only once each morning.
+
+
 
 
 ## Installation
