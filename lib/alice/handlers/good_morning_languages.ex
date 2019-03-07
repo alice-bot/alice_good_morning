@@ -148,6 +148,6 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   end
 
   defp format_message(language) do
-    "Today's good morning was in #{language}\nhttps://en.wikipedia.org/wiki/#{language}_language"
+    "Today's good morning was in #{language}"
   end
 end
