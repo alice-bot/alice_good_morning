@@ -10,7 +10,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   @good_morning_regex ~r/good morning|mirëmëngjes|egun on|добрай раніцы|dobray ranici|dobro jutro|добро утро|dobro utro|bon dia|dobro jutro|dobré ráno|godmorgen|goedemorgen|tere hommikust|huomenta|bonjour|bos días|guten morgen|καλημέρα|kaliméra|jó reggelt|góðan dag|buongiorno|labrīt|labas rytas|добро утро|dobro utro|bongu|god morgen|dzień dobry|bom dia|bună dimineața|доброе утро|dobro utro|добро јутро|dobro utro|buenos días|god morgon|добрий ранок|dobre rano|bore da|אַ גוטנ מאָרג|gut margn|goeie more|za asubuhi|sawubona|շնորհակալություն|chnorakaloutioun|早晨|jóusàhn|सुप्रभात|namaste|おはようございます|ohayōgozaimasu|annyeong hashimnikka|selamat pagi|早上好|zǎoshang hǎo|өглөөний мэнд|காலை வணக்கம்|kālai vaṇakkam|อรุณสวัสดิ์ |sawùt dee krúp\/kâ|chào buổi sáng|صباح الخير|sabah alkhyr|salam|günaydın/i
 
   route(@good_morning_regex, :good_morning)
-  command(@good_morning_regex, :good_morning)
+  command(@good_morning_regex, :direct_good_morning)
   command(~r/morning language/, :good_morning_language)
 
   @good_mornings [
@@ -91,15 +91,52 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   # end
 
   @doc """
-  Say good morning to Alice in many different languages and she will respond
-  with a "good morning" in a different language.
+  `@alice Good Morning`
+  `@alice おはようございます`
+  `@alice Bonjour`
+  Alice will respond back with a good morning in a random language
   """
-  def good_morning(conn) do
-    with today <- DateTime.to_date(DateTime.utc_now()),
+  def direct_good_morning(
+        %{slack: %{users: users}, message: %{ts: event_timestamp, user: user_id}} = conn
+      ) do
+    with {timestamp, _} <- Integer.parse(event_timestamp),
+         adjusted_time <- timestamp + users[user_id].tz_offset,
+         {:ok, datetime} <- DateTime.from_unix(adjusted_time),
+         true <- morning?(datetime),
+         today <- DateTime.to_date(DateTime.utc_now()),
          :gt <- Date.compare(today, last_good_morning(conn)) do
-      good_morning =
-        @good_mornings
-        |> Enum.random()
+      @good_mornings
+      |> Enum.random()
+      |> format_message()
+      |> reply(conn)
+    else
+      false ->
+        reply(conn, "#{Alice.Conn.at_reply_user(conn)} you silly, It's not morning anymore!")
+
+      _ ->
+        conn
+    end
+  end
+
+  @doc """
+  `good morning`
+  `bom dia`
+  `buenos días`
+  `おはようございます`
+  `
+  Say good morning to Alice in many different languages and she will respond
+  with a "good morning" in a random language.
+  """
+  def good_morning(
+        %{slack: %{users: users}, message: %{ts: event_timestamp, user: user_id}} = conn
+      ) do
+    with {timestamp, _} <- Integer.parse(event_timestamp),
+         adjusted_time <- timestamp + users[user_id].tz_offset,
+         {:ok, datetime} <- DateTime.from_unix(adjusted_time),
+         true <- morning?(datetime),
+         today <- DateTime.to_date(DateTime.utc_now()),
+         :gt <- Date.compare(today, last_good_morning(conn)) do
+      good_morning = Enum.random(@good_mornings)
 
       good_morning
       |> format_message()
@@ -107,13 +144,19 @@ defmodule Alice.Handlers.GoodMorningLanguages do
 
       update_last_good_morning(conn, good_morning)
     else
+      false ->
+        Logger.info("#{__MODULE__} It's not morning anymore")
+        conn
+
       _ ->
-        Logger.info("We already said good morning on #{last_good_morning(conn)}")
+        Logger.info("#{__MODULE__} We already said good morning on #{last_good_morning(conn)}")
         conn
     end
   end
 
   @doc """
+  `@alice morning language`
+
   Returns the language of the last good morning alice said
   """
   def good_morning_language(conn) do
@@ -149,5 +192,9 @@ defmodule Alice.Handlers.GoodMorningLanguages do
 
   defp format_message(language) do
     "Today's good morning was in #{language}"
+  end
+
+  defp morning?(%DateTime{} = datetime) do
+    datetime.hour < 12
   end
 end
