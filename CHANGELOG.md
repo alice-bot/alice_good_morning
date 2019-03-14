@@ -1,3 +1,6 @@
+## v1.0.3
+  * Remove check for last_good_morning in the command (direct_good_morning/1)
+
 ## v1.0.2
   * Actually check if it's before noon in the user's timezone
 
