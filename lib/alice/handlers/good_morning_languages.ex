@@ -102,9 +102,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     with {timestamp, _} <- Integer.parse(event_timestamp),
          adjusted_time <- timestamp + users[user_id].tz_offset,
          {:ok, datetime} <- DateTime.from_unix(adjusted_time),
-         true <- morning?(datetime),
-         today <- DateTime.to_date(DateTime.utc_now()),
-         :gt <- Date.compare(today, last_good_morning(conn)) do
+         true <- morning?(datetime) do
       @good_mornings
       |> Enum.random()
       |> format_message()
