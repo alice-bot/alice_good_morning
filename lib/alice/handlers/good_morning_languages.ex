@@ -7,7 +7,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   use Alice.Router
   require Logger
 
-  @good_morning_regex ~r/good morning|mirëmëngjes|egun on|добрай раніцы|dobray ranici|dobro jutro|добро утро|dobro utro|bon dia|dobro jutro|dobré ráno|godmorgen|goedemorgen|tere hommikust|huomenta|bonjour|bos días|guten morgen|καλημέρα|kaliméra|jó reggelt|góðan dag|buongiorno|labrīt|labas rytas|добро утро|dobro utro|bongu|god morgen|dzień dobry|bom dia|bună dimineața|доброе утро|dobro utro|добро јутро|dobro utro|buenos días|god morgon|добрий ранок|dobre rano|bore da|אַ גוטנ מאָרג|gut margn|goeie more|za asubuhi|sawubona|շնորհակալություն|chnorakaloutioun|早晨|jóusàhn|सुप्रभात|namaste|おはようございます|ohayōgozaimasu|annyeong hashimnikka|selamat pagi|早上好|zǎoshang hǎo|өглөөний мэнд|காலை வணக்கம்|kālai vaṇakkam|อรุณสวัสดิ์ |sawùt dee krúp\/kâ|chào buổi sáng|صباح الخير|sabah alkhyr|salam|günaydın/i
+  @good_morning_regex ~r/good morning|mirëmëngjes|egun on|добрай раніцы|dobray ranici|dobro jutro|добро утро|dobro utro|bon dia|dobro jutro|dobré ráno|godmorgen|goedemorgen|tere hommikust|huomenta|bonjour|bos días|guten morgen|καλημέρα|kaliméra|jó reggelt|góðan dag|buongiorno|labrīt|labas rytas|добро утро|dobro utro|bongu|god morgen|dzień dobry|bom dia|bună dimineața|доброе утро|dobro utro|добро јутро|dobro utro|buenos días|god morgon|добрий ранок|dobre rano|bore da|אַ גוטנ מאָרג|gut margn|goeie more|za asubuhi|sawubona|շնորհակալություն|chnorakaloutioun|早晨|jóusàhn|सुप्रभात|namaste|おはようございます|ohayōgozaimasu|annyeong hashimnikka|selamat pagi|早上好|zǎoshang hǎo|өглөөний мэнд|காலை வணக்கம்|kālai vaṇakkam|สวัสดี ครับ\/ค่ะ |sawùt dee krúp\/kâ|chào buổi sáng|صباح الخير|sabah alkhyr|salam|günaydın/i
 
   route(@good_morning_regex, :good_morning)
   command(@good_morning_regex, :direct_good_morning)
@@ -73,7 +73,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     %{language: "Mandarin", text: "早上好 (Zǎoshang hǎo)", regex: "早上好|Zǎoshang hǎo"},
     %{language: "Mongolian", text: "Өглөөний мэнд", regex: "Өглөөний мэнд"},
     %{language: "Tamil", text: "காலை வணக்கம் (Kālai vaṇakkam)", regex: "காலை வணக்கம்|Kālai vaṇakkam"},
-    %{language: "Thai", text: "อรุณสวัสดิ์ (Sawùt dee krúp/kâ)", regex: "อรุณสวัสดิ์ |Sawùt dee krúp/kâ"},
+    %{language: "Thai", text: "สวัสดี ครับ/ค่ะ (Sawùt dee krúp/kâ)", regex: "สวัสดี ครับ/ค่ะ |Sawùt dee krúp/kâ"},
     %{language: "Vietnamese", text: "Chào buổi sáng", regex: "Chào buổi sáng"},
     %{language: "Arabic", text: "صباح الخير (Sabah alkhyr)", regex: "صباح الخير|Sabah alkhyr"},
     %{language: "Farsi", text: "Salam", regex: "Salam"},

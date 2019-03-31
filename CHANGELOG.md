@@ -1,3 +1,6 @@
+## v1.0.4
+  * Corrected Thai translation
+
 ## v1.0.3
   * Remove check for last_good_morning in the command (direct_good_morning/1)
 
