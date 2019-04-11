@@ -74,10 +74,10 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     %{language: "Turkish", text: "Günaydın", regex: "Günaydın"}
   ]
 
-@good_morning_regexes @good_mornings |> Enum.map(&(&1.regex)) |> Enum.join("|")
+@good_morning_languages @good_mornings |> Enum.map(&(&1.regex)) |> Enum.join("|")
 
-route(~r/\A#{@good_morning_regexes}\z/i, :good_morning)
-command(~r/> (#{@good_morning_regexes})\z/i, :direct_good_morning)
+route(~r/\A#{@good_morning_languages}\z/i, :good_morning)
+command(~r/> (#{@good_morning_languages})\z/i, :direct_good_morning)
 command(~r/> (good morning|morning) language\z/i, :good_morning_language)
 
   @doc """
