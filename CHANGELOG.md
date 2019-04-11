@@ -1,3 +1,8 @@
+## v1.0.5
+  * Routes are now built dynamically
+  * Fixed regex so that `:good_morning_language` will not trigger `:direct_good_morning`
+  * `:direct_good_morning` can now be triggered via "good morning language" or "morning language"
+
 ## v1.0.4
   * Corrected Thai translation
 
