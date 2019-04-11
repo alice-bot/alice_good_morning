@@ -67,7 +67,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     %{language: "Mandarin", text: "早上好 (Zǎoshang hǎo)", regex: "早上好|Zǎoshang hǎo"},
     %{language: "Mongolian", text: "Өглөөний мэнд", regex: "Өглөөний мэнд"},
     %{language: "Tamil", text: "காலை வணக்கம் (Kālai vaṇakkam)", regex: "காலை வணக்கம்|Kālai vaṇakkam"},
-    %{language: "Thai", text: "สวัสดี ครับ/ค่ะ (Sawùt dee krúp/kâ)", regex: "สวัสดี ครับ/ค่ะ |Sawùt dee krúp/kâ"},
+    %{language: "Thai", text: "สวัสดี ครับ/ค่ะ (Sawùt dee krúp/kâ)", regex: "สวัสดี ครับ/ค่ะ|Sawùt dee krúp/kâ"},
     %{language: "Vietnamese", text: "Chào buổi sáng", regex: "Chào buổi sáng"},
     %{language: "Arabic", text: "صباح الخير (Sabah alkhyr)", regex: "صباح الخير|Sabah alkhyr"},
     %{language: "Farsi", text: "Salam", regex: "Salam"},
