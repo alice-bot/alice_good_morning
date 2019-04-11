@@ -7,14 +7,8 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   use Alice.Router
   require Logger
 
-  @good_morning_regex ~r/good morning|mirëmëngjes|egun on|добрай раніцы|dobray ranici|dobro jutro|добро утро|dobro utro|bon dia|dobro jutro|dobré ráno|godmorgen|goedemorgen|tere hommikust|huomenta|bonjour|bos días|guten morgen|καλημέρα|kaliméra|jó reggelt|góðan dag|buongiorno|labrīt|labas rytas|добро утро|dobro utro|bongu|god morgen|dzień dobry|bom dia|bună dimineața|доброе утро|dobro utro|добро јутро|dobro utro|buenos días|god morgon|добрий ранок|dobre rano|bore da|אַ גוטנ מאָרג|gut margn|goeie more|za asubuhi|sawubona|շնորհակալություն|chnorakaloutioun|早晨|jóusàhn|सुप्रभात|namaste|おはようございます|ohayōgozaimasu|annyeong hashimnikka|selamat pagi|早上好|zǎoshang hǎo|өглөөний мэнд|காலை வணக்கம்|kālai vaṇakkam|สวัสดี ครับ\/ค่ะ |sawùt dee krúp\/kâ|chào buổi sáng|صباح الخير|sabah alkhyr|salam|günaydın/i
-
-  route(@good_morning_regex, :good_morning)
-  command(@good_morning_regex, :direct_good_morning)
-  command(~r/morning language/, :good_morning_language)
-
   @good_mornings [
-    %{text: "Good morning"},
+    %{text: "Good morning", regex: "good morning"},
     %{language: "Albanian", text: "Mirëmëngjes", regex: "Mirëmëngjes"},
     %{language: "Bascue", text: "Egun on", regex: "Egun on"},
     %{
@@ -80,15 +74,11 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     %{language: "Turkish", text: "Günaydın", regex: "Günaydın"}
   ]
 
-  # Helpful to generate regex
-  # def generate_regex_match do
-  #   for %{regex: regex} <- @good_mornings do
-  #     String.downcase(regex)
-  #   end
-  #   |> Enum.join("|")
-  #   |> Regex.compile()
-  #   |> elem(1)
-  # end
+@good_morning_regexes @good_mornings |> Enum.map(&(&1.regex)) |> Enum.join("|")
+
+route(~r/\A#{@good_morning_regexes}\z/i, :good_morning)
+command(~r/> (#{@good_morning_regexes})\z/i, :direct_good_morning)
+command(~r/> (good morning|morning) language\z/i, :good_morning_language)
 
   @doc """
   `Good Morning`
