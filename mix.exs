@@ -20,7 +20,7 @@ defmodule AliceGoodMorning.Mixfile do
 
   defp deps do
     [
-      {:alice, "~> 0.3"},
+      {:alice, "~> 0.4.1"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
