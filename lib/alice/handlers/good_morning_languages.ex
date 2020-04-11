@@ -5,6 +5,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   It does so only once each morning.
   """
   use Alice.Router
+  alias Alice.Conn
   require Logger
 
   @good_mornings [
@@ -67,18 +68,22 @@ defmodule Alice.Handlers.GoodMorningLanguages do
     %{language: "Mandarin", text: "早上好 (Zǎoshang hǎo)", regex: "早上好|Zǎoshang hǎo"},
     %{language: "Mongolian", text: "Өглөөний мэнд", regex: "Өглөөний мэнд"},
     %{language: "Tamil", text: "காலை வணக்கம் (Kālai vaṇakkam)", regex: "காலை வணக்கம்|Kālai vaṇakkam"},
-    %{language: "Thai", text: "สวัสดี ครับ/ค่ะ (Sawùt dee krúp/kâ)", regex: "สวัสดี ครับ/ค่ะ|Sawùt dee krúp/kâ"},
+    %{
+      language: "Thai",
+      text: "สวัสดี ครับ/ค่ะ (Sawùt dee krúp/kâ)",
+      regex: "สวัสดี ครับ/ค่ะ|Sawùt dee krúp/kâ"
+    },
     %{language: "Vietnamese", text: "Chào buổi sáng", regex: "Chào buổi sáng"},
     %{language: "Arabic", text: "صباح الخير (Sabah alkhyr)", regex: "صباح الخير|Sabah alkhyr"},
     %{language: "Farsi", text: "Salam", regex: "Salam"},
     %{language: "Turkish", text: "Günaydın", regex: "Günaydın"}
   ]
 
-@good_morning_languages @good_mornings |> Enum.map(&(&1.regex)) |> Enum.join("|")
+  @good_morning_languages @good_mornings |> Enum.map(& &1.regex) |> Enum.join("|")
 
-route(~r/\A#{@good_morning_languages}\z/i, :good_morning)
-command(~r/> (#{@good_morning_languages})\z/i, :direct_good_morning)
-command(~r/> (good morning|morning) language\z/i, :good_morning_language)
+  route(~r/\A#{@good_morning_languages}\z/i, :good_morning)
+  command(~r/> (#{@good_morning_languages})\z/i, :direct_good_morning)
+  command(~r/> (good morning|morning) language\z/i, :good_morning_language)
 
   @doc """
   `Good Morning`
@@ -86,11 +91,9 @@ command(~r/> (good morning|morning) language\z/i, :good_morning_language)
   `Bonjour`
   Alice will respond back with a good morning in a random language
   """
-  def direct_good_morning(
-        %{slack: %{users: users}, message: %{ts: event_timestamp, user: user_id}} = conn
-      ) do
-    with {timestamp, _} <- Integer.parse(event_timestamp),
-         adjusted_time <- timestamp + users[user_id].tz_offset,
+  def direct_good_morning(conn) do
+    with {timestamp, _} <- Integer.parse(Conn.timestamp(conn)),
+         adjusted_time <- timestamp + Conn.tz_offset(conn),
          {:ok, datetime} <- DateTime.from_unix(adjusted_time),
          true <- morning?(datetime) do
       @good_mornings
@@ -99,7 +102,7 @@ command(~r/> (good morning|morning) language\z/i, :good_morning_language)
       |> reply(conn)
     else
       false ->
-        reply(conn, "#{Alice.Conn.at_reply_user(conn)} you silly, It's not morning anymore!")
+        reply(conn, "#{Conn.at_reply_user(conn)} you silly, It's not morning anymore!")
 
       _ ->
         conn
@@ -115,11 +118,9 @@ command(~r/> (good morning|morning) language\z/i, :good_morning_language)
   Say good morning to Alice in many different languages and she will respond
   with a "good morning" in a random language.
   """
-  def good_morning(
-        %{slack: %{users: users}, message: %{ts: event_timestamp, user: user_id}} = conn
-      ) do
-    with {timestamp, _} <- Integer.parse(event_timestamp),
-         adjusted_time <- timestamp + users[user_id].tz_offset,
+  def good_morning(conn) do
+    with {timestamp, _} <- Integer.parse(Conn.timestamp(conn)),
+         adjusted_time <- timestamp + Conn.tz_offset(conn),
          {:ok, datetime} <- DateTime.from_unix(adjusted_time),
          true <- morning?(datetime),
          today <- DateTime.to_date(DateTime.utc_now()),
