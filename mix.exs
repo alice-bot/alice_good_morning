@@ -15,12 +15,12 @@ defmodule AliceGoodMorning.Mixfile do
   end
 
   def application do
-    [applications: [:logger]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
     [
-      {:alice, "~> 0.4.1"},
+      {:alice, "~> 0.4.3"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
