@@ -11,7 +11,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   @good_mornings [
     %{language: "English", text: "Good morning", regex: "good morning"},
     %{language: "Albanian", text: "Mirëmëngjes", regex: "Mirëmëngjes"},
-    %{language: "Bascue", text: "Egun on", regex: "Egun on"},
+    %{language: "Basque", text: "Egun on", regex: "Egun on"},
     %{
       language: "Belarusian",
       text: "Добрай раніцы (Dobray ranici)",
