@@ -9,7 +9,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   require Logger
 
   @good_mornings [
-    %{text: "Good morning", regex: "good morning"},
+    %{language: "English", text: "Good morning", regex: "good morning"},
     %{language: "Albanian", text: "Mirëmëngjes", regex: "Mirëmëngjes"},
     %{language: "Bascue", text: "Egun on", regex: "Egun on"},
     %{
