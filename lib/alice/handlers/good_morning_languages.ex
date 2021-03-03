@@ -9,9 +9,9 @@ defmodule Alice.Handlers.GoodMorningLanguages do
   require Logger
 
   @good_mornings [
-    %{text: "Good morning", regex: "good morning"},
+    %{language: "English", text: "Good morning", regex: "good morning"},
     %{language: "Albanian", text: "Mirëmëngjes", regex: "Mirëmëngjes"},
-    %{language: "Bascue", text: "Egun on", regex: "Egun on"},
+    %{language: "Basque", text: "Egun on", regex: "Egun on"},
     %{
       language: "Belarusian",
       text: "Добрай раніцы (Dobray ranici)",
@@ -129,9 +129,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
 
       good_morning
       |> format_message()
-      |> reply(conn)
-
-      update_last_good_morning(conn, good_morning)
+      |> reply(update_last_good_morning(conn, good_morning))
     else
       false ->
         Logger.info("#{__MODULE__} It's not morning anymore")

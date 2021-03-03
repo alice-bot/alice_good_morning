@@ -1,3 +1,6 @@
+## v1.0.6
+  * Adds english language to GoodMorningLanguages [#7](https://github.com/tielur/alice_good_morning/issues/5)
+  * Fixes spelling of Basque [#6](https://github.com/tielur/alice_good_morning/issues/6)
 ## v1.0.5
   * Routes are now built dynamically
   * Fixed regex so that `:good_morning_language` will not trigger `:direct_good_morning`
