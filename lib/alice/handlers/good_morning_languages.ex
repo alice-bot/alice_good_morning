@@ -129,9 +129,7 @@ defmodule Alice.Handlers.GoodMorningLanguages do
 
       good_morning
       |> format_message()
-      |> reply(conn)
-
-      update_last_good_morning(conn, good_morning)
+      |> reply(update_last_good_morning(conn, good_morning))
     else
       false ->
         Logger.info("#{__MODULE__} It's not morning anymore")
